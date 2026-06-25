@@ -177,7 +177,22 @@ function getField(entry, field) {
 
 function formatAuthors(authors) {
   if (!authors) return "";
-  return authors.replace(/ and /g, ", ");
+
+  // Replace BibTeX author separator
+  authors = authors.replace(/\s+and\s+/g, ", ");
+
+  // Highlight your name
+  authors = authors
+    .replace(
+      /Fekadu L\.?\s+Bayisa/gi,
+      "<strong>Fekadu L. Bayisa</strong>"
+    )
+    .replace(
+      /Bayisa,\s*Fekadu L\.?/gi,
+      "<strong>Bayisa, Fekadu L.</strong>"
+    );
+
+  return authors;
 }
 
 fetch("FekBayPublications.bib")
@@ -218,10 +233,10 @@ fetch("FekBayPublications.bib")
       if (url) links += ` [<a href="${url}" target="_blank">Link</a>]`;
 
       html += `
-        <li>
-          ${authors}.
-          <em>${title}</em>.
-          ${journal ? journal + "." : ""}
+        <li style="margin-bottom: 12px;">
+          ${authors}.<br>
+          <em>${title}</em>.<br>
+          ${journal ? journal + ". " : ""}
           ${year ? year + "." : ""}
           ${links}
         </li>
@@ -237,7 +252,6 @@ fetch("FekBayPublications.bib")
     console.error(error);
   });
 </script>
-
   
 <h3>Talks</h3>
   
