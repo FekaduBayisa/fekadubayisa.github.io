@@ -163,8 +163,11 @@
 
   
 <h3>Publications and Preprints</h3>
-  
-<div id="publications"></div>
+
+<div id="publications">Loading publications...</div>
+
+<!-- Load the BibTeX parser -->
+<script src="https://cdn.jsdelivr.net/npm/bibtex-parse-js@0.0.24/bibtexParse.min.js"></script>
 
 <script>
 fetch("FekBayPublications.bib")
@@ -194,7 +197,7 @@ fetch("FekBayPublications.bib")
       const pdf = getField(entry, "pdf");
 
       let links = "";
-      if (code) links += ` [<a href="${code}" target="_blank">Codes</a>]`;
+      if (code) links += ` [<a href="${code}" target="_blank">Code</a>]`;
       if (pdf) links += ` [<a href="${pdf}" target="_blank">PDF</a>]`;
 
       html += `
